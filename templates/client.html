@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<style>
+body{
+  font-weight: bolder;
+  color:maroon;
+  padding-left: 20px;
+}
+a{
+  padding-right:150px;
+
+}
+.topnav {
+background-color: #333;
+overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+float: left;
+color: #f2f2f2;
+text-align: center;
+padding: 14px 16px;
+text-decoration: none;
+font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+background-color: #ddd;
+color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+background-color: #4CAF50;
+color: white;
+}
+</style>
+  </head>
+  <body>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <div class="container">
+      <div class="topnav">
+  <a class="active" href="#home">Justica</a>
+  <a href="#news">News</a>
+  <a href="#contact">Contact</a>
+  <a href="#about">About</a>
+  <form action="{{url_for('logout')}}" style="float:right;">
+          <button type="submit" class="btn btn-primary btn-lg">Logout</button>
+        </form>
+
+</div>
+      <h1>welcome : {{t}}</h1>
+      <h2>{{s}}</h2>
+
+    <form action="{{url_for('querypost')}}" method="POST" enctype="multipart/form-data">
+  <div class="input-group">
+  <div class="input-group-prepend">
+  </div>
+  <textarea class="form-control" aria-label="With textarea" placeholder="Enter the new queries here" name="data"></textarea>
+</div>
+<input type="file" name="image">
+  <button type="submit" class="btn btn-primary" value=Upload>Submit Form</button>
+<select name="drop">
+  <option>Real Estate</option>
+  <option>Marriage</option>
+  <option>Accident</option>
+    <option>Harrasement</option>
+</select>
+
+</form>
+Reply firebase:{{st}}
+</div>
+
+
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Category</a>
+
+      <a href="#">Question/Query</a>
+    <a href="#">time</a>
+      <a href="#">Submitted docs</a>
+    <a href="#">see recieved replies</a>
+  </div>
+  </div>
+</nav>
+<table border=2 style="padding:30px;">
+{% for i in results %}
+{% if i['name']== username %}
+<div class="row" style="padding-bottom:50px;">
+  <div class="col-sm">{{i['category']}}</div>
+  <div class="col-sm">{{i['article']}}</div>
+    <div class="col-sm">{{i['time']}}</div>
+    <div class="col-sm"><img src="{{url_for('static', filename='stack.png')}}" style="width:50px;height:50px;"></div>
+ <div class="col-sm"><input type="button" name="theButton" class="btn btn-success" value="{{i['article_id']}}" onclick="showDetails({{i['article_id']}});"></div>
+</div>
+{% endif %}
+{% endfor %}
+</table>
+
+
+  </body>
+
+  <script type="text/javascript">
+  function showDetails(username)
+  {
+     window.location = '/player_detail?username='+username;
+  }
+  function saveimg()
+  {
+    var url="https://picsum.photos/200/300";
+    return url;
+  }
+
+  </script>
+
+</html>
